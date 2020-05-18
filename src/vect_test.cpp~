@@ -1,0 +1,12 @@
+#include "Vector2d.cpp"
+#include "iostream"
+
+int main(){
+  Vector2d inicio(0,0);
+  inicio.print();
+  Vector2d temp(3,M_PI*1/4);
+  temp.print();
+  inicio.sum(temp);
+  inicio.print();
+  return 0;
+}

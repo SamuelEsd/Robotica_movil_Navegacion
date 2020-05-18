@@ -1,0 +1,56 @@
+#include "Vector2d.hpp" 
+#include <cmath>
+
+Vector2d::Vector2d(double m, double a){ 
+    magnitude = m;
+    angle = a;
+    this->getComponents();
+}
+
+
+double Vector2d::getMagnitude(){
+    return this->magnitude;
+}
+
+double Vector2d::getAngle(){
+    return this->angle;
+}
+
+Vector2d Vector2d::sum(Vector2d v){
+    double x = this->x + v.x;
+    double y = this->y + v.y;
+    this->magnitude = sqrt(pow(x,2)+pow(y,2));
+    if (y == 0){
+        if (x >= 0){
+            this->angle = 0;
+        }
+        else{
+            this->angle = M_1_PI;
+        }
+    }
+    else{
+        this->angle = atan(x/y);
+    }
+    
+    // Second and third quadrant
+    if(x < 0){
+        this->angle += M_PI;
+    }
+    // fourth quadrant
+    else if (y < 0){
+        this->angle += 2*M_PI;
+    }
+    this->getComponents();
+}
+
+void Vector2d::getComponents(){
+    double degrees = (angle*180)/M_PI;
+    x = cos(degrees)*magnitude;
+    y = sin(degrees)*magnitude;
+    if (degrees > 180){
+        y *= -1;
+    }
+    if(degrees > 90 && degrees < 270){
+        x *= -1;
+    }
+}
